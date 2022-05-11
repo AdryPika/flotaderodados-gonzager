@@ -1,0 +1,46 @@
+import dependencias.*
+import rodados.*
+
+describe "Dependcias" {
+	var deporte = new Dependencia(cantEmpleados=45)
+	var cultura = new Dependencia(cantEmpleados= 31)
+	var cachito = new Corsa(color="rojo")
+	
+	
+	method initialize() {
+		deporte.agregarAFlota(cachito)
+		deporte.agregarAFlota( new Corsa(color= "azul"))
+		deporte.agregarAFlota( new Corsa(color= "verde"))
+		deporte.agregarAFlota( new Kwid(tanqueAdicional= true))
+		deporte.agregarAFlota( new AutoEspecial(peso=1200, color="Beige", capacidad=5, velocidadMaxima=160))
+	
+		cultura.agregarAFlota(cachito)
+		cultura.agregarAFlota( new Kwid(tanqueAdicional= true))
+		cultura.agregarAFlota( new Kwid(tanqueAdicional= true))
+		cultura.agregarAFlota( new Kwid(tanqueAdicional= false))
+		
+		traffic.interior(interiorPopular)
+		traffic.motor(motorBataton)
+		cultura.agregarAFlota(traffic)
+		
+	}
+
+	test "Deporte capacidad total Flota" {
+		assert.equals( 4 * 3 +  3 + 5 , deporte.capacidadTotalDeLaFlota()  )
+	}
+	
+	test "Cultura capacidad total Flota" {
+		assert.equals(1300 + 2 * 1350 + 1200 + 5500, cultura.pesoTotalFlota())
+	}
+	
+	test "Capacidad Faltante deporte" {
+		assert.equals(25, deporte.capacidadFaltante())
+	}
+	
+	test "Capacidad Faltante cultura" {
+		assert.equals(5, cultura.capacidadFaltante())
+	}
+}
+
+
+

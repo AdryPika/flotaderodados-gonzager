@@ -1,0 +1,28 @@
+import pedido.*
+import rodados.*
+
+describe "Test Global de pedidos" {
+	var p1 = new Pedido(distancia=960, tiempoMaximo = 8, pasajerosATransportar= 4,  coloresIncompatibles=["azul","negro"])
+	var p2 = new Pedido(distancia=960, tiempoMaximo = 10, pasajerosATransportar= 4,  coloresIncompatibles=["rojo","negro"])
+	var cachito = new Corsa(color="rojo")
+	test "Corsa satisface pedido" {
+		assert.that(p1.loPuedeSatisfacer( cachito))
+	}
+	
+	test "Corsa no satisface pedido por color incompatible"  {
+		p1.coloresIncompatibles(["azul","negro","rojo"])
+		assert.notThat(p1.loPuedeSatisfacer( cachito))
+	}
+	
+	test "Kwid no satisface pedido por capacidad"  {
+		assert.notThat(p1.loPuedeSatisfacer( new Kwid(tanqueAdicional=true)))
+	}
+	
+	test "Kwid satisface pedido por velicidad"  {
+		assert.notThat(p1.loPuedeSatisfacer( new Kwid(tanqueAdicional=false)))
+	}
+	
+	test "Kwid satisface"  {
+		assert.that(p2.loPuedeSatisfacer( new Kwid(tanqueAdicional=false)))
+	}
+}
